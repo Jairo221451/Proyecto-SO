@@ -81,6 +81,13 @@ elf.o: elf.c
 shell.o: shell.c
 	$(CC) $(CFLAGS) shell.c
 
+# Reglas para datos ELF embebidos
+hello_elf_data.o: user_programs/hello_elf_data.c
+	$(CC) $(CFLAGS) user_programs/hello_elf_data.c -o hello_elf_data.o
+
+calc_elf_data.o: user_programs/calc_elf_data.c
+	$(CC) $(CFLAGS) user_programs/calc_elf_data.c -o calc_elf_data.o
+
 interrupt.o: interrupt.asm
 	$(NASM) $(NASMFLAGS) interrupt.asm
 
