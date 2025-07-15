@@ -201,6 +201,11 @@ void cmd_cat(int argc, char **argv) {
         return;
     }
     
+    // Reset file position to beginning before reading
+    if (fd >= 0 && fd < MAX_FILES && open_files[fd].used) {
+        open_files[fd].position = 0;
+    }
+    
     char *buffer = (char *)kmalloc(4096);
     if (buffer == NULL) {
         print("Cannot allocate memory\n");
@@ -213,6 +218,8 @@ void cmd_cat(int argc, char **argv) {
         buffer[bytes_read] = '\0';
         print(buffer);
         print("\n");
+    } else {
+        print("File is empty or cannot read file\n");
     }
     
     kfree(buffer);
