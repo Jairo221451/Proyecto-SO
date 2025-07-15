@@ -11,6 +11,7 @@
 #include "fs.h"
 #include "shell.h"
 #include "lib.h"
+#include "elf_data.h"
 
 void init_pic(void);
 int main(void);  // Declaración de la función main
