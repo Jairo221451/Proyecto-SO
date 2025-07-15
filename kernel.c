@@ -111,17 +111,54 @@ int main(void)
         fs_close_file(fd);
     }
     
+    /* Crear algunos archivos de ejemplo y cargar programas ELF */
+    int fd;
+    char *sample_text = "Hello from Pepin OS!\nThis is a sample file.\n";
+    
+    fd = fs_open_file("readme.txt");
+    if (fd >= 0) {
+        fs_write_file(fd, sample_text, strlen(sample_text));
+        fs_close_file(fd);
+    }
+    
+    sample_text = "Welcome to Pepin OS!\nA simple operating system.\n";
+    fd = fs_open_file("welcome.txt");
+    if (fd >= 0) {
+        fs_write_file(fd, sample_text, strlen(sample_text));
+        fs_close_file(fd);
+    }
+    
     /* Cargar programas ELF al sistema de archivos */
     print("kernel : Loading ELF programs to filesystem...\n");
     
-    // Crear hello.elf en el filesystem
+    // Crear hello.elf en el filesystem con datos ELF básicos
     if (fs_create_file("hello.elf", 9000) >= 0) {
-        print("kernel : hello.elf created in filesystem\n");
+        fd = fs_open_file("hello.elf");
+        if (fd >= 0) {
+            // Escribir header ELF básico (magic bytes)
+            char elf_header[] = {0x7F, 'E', 'L', 'F', 0x01, 0x01, 0x01, 0x00,
+                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                0x02, 0x00, 0x03, 0x00, 0x01, 0x00, 0x00, 0x00,
+                                0x28, 0x00, 0x40, 0x00, 0x34, 0x00, 0x00, 0x00};
+            fs_write_file(fd, elf_header, sizeof(elf_header));
+            fs_close_file(fd);
+            print("kernel : hello.elf created in filesystem\n");
+        }
     }
     
-    // Crear calc.elf en el filesystem  
+    // Crear calc.elf en el filesystem
     if (fs_create_file("calc.elf", 9000) >= 0) {
-        print("kernel : calc.elf created in filesystem\n");
+        fd = fs_open_file("calc.elf");
+        if (fd >= 0) {
+            // Escribir header ELF básico (magic bytes)
+            char elf_header[] = {0x7F, 'E', 'L', 'F', 0x01, 0x01, 0x01, 0x00,
+                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                0x02, 0x00, 0x03, 0x00, 0x01, 0x00, 0x00, 0x00,
+                                0x28, 0x00, 0x40, 0x00, 0x34, 0x00, 0x00, 0x00};
+            fs_write_file(fd, elf_header, sizeof(elf_header));
+            fs_close_file(fd);
+            print("kernel : calc.elf created in filesystem\n");
+        }
     }
     
     print("kernel : ELF programs loaded\n");
