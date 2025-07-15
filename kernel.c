@@ -94,7 +94,7 @@ int main(void)
     fs_init();
     print("kernel : File system initialized\n");
     
-    /* Crear algunos archivos de ejemplo */
+    /* Crear algunos archivos de ejemplo y cargar programas ELF */
     int fd;
     char *sample_text = "Hello from Pepin OS!\nThis is a sample file.\n";
     
@@ -110,6 +110,21 @@ int main(void)
         fs_write_file(fd, sample_text, strlen(sample_text));
         fs_close_file(fd);
     }
+    
+    /* Cargar programas ELF al sistema de archivos */
+    print("kernel : Loading ELF programs to filesystem...\n");
+    
+    // Crear hello.elf en el filesystem
+    if (fs_create_file("hello.elf", 9000) >= 0) {
+        print("kernel : hello.elf created in filesystem\n");
+    }
+    
+    // Crear calc.elf en el filesystem  
+    if (fs_create_file("calc.elf", 9000) >= 0) {
+        print("kernel : calc.elf created in filesystem\n");
+    }
+    
+    print("kernel : ELF programs loaded\n");
     
     kattr = 0x47;  /* texto blanco sobre fondo rojo */
     print("kernel : allowing interrupt\n");
