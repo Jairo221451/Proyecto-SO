@@ -296,6 +296,11 @@ void cmd_write(int argc, char **argv) {
         return;
     }
     
+    // Reset file position to beginning before writing
+    if (fd >= 0 && fd < MAX_FILES && open_files[fd].used) {
+        open_files[fd].position = 0;
+    }
+    
     // Concatenar todos los argumentos después del filename
     char *text = argv[2];
     int text_len = strlen(text);
