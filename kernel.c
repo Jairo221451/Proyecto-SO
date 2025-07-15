@@ -97,23 +97,6 @@ int main(void)
     
     /* Crear algunos archivos de ejemplo y cargar programas ELF */
     int fd;
-    char *sample_text = "Hello from Pepin OS!\nThis is a sample file.\n";
-    
-    fd = fs_open_file("readme.txt");
-    if (fd >= 0) {
-        fs_write_file(fd, sample_text, strlen(sample_text));
-        fs_close_file(fd);
-    }
-    
-    sample_text = "Welcome to Pepin OS!\nA simple operating system.\n";
-    fd = fs_open_file("welcome.txt");
-    if (fd >= 0) {
-        fs_write_file(fd, sample_text, strlen(sample_text));
-        fs_close_file(fd);
-    }
-    
-    /* Crear algunos archivos de ejemplo y cargar programas ELF */
-    int fd;
     char *sample_text;
     
     sample_text = "Hello from Pepin OS!\nThis is a sample file.\n";
