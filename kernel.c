@@ -117,27 +117,27 @@ int main(void)
     print("kernel : Loading ELF programs to filesystem...\n");
     
     // Crear hello.elf en el filesystem con los datos reales
-    if (fs_create_file("hello.elf", hello_elf_size) >= 0) {
+    if (fs_create_file("hello.elf", hello_elf_data_size) >= 0) {
         fd = fs_open_file("hello.elf");
         if (fd >= 0) {
             // Escribir los datos ELF completos
-            fs_write_file(fd, hello_elf_data, hello_elf_size);
+            fs_write_file(fd, hello_elf_data, hello_elf_data_size);
             fs_close_file(fd);
             print("kernel : hello.elf created in filesystem (");
-            print_dec(hello_elf_size);
+            print_dec(hello_elf_data_size);
             print(" bytes)\n");
         }
     }
     
     // Crear calc.elf en el filesystem con los datos reales
-    if (fs_create_file("calc.elf", calc_elf_size) >= 0) {
+    if (fs_create_file("calc.elf", calc_elf_data_size) >= 0) {
         fd = fs_open_file("calc.elf");
         if (fd >= 0) {
             // Escribir los datos ELF completos
-            fs_write_file(fd, calc_elf_data, calc_elf_size);
+            fs_write_file(fd, calc_elf_data, calc_elf_data_size);
             fs_close_file(fd);
             print("kernel : calc.elf created in filesystem (");
-            print_dec(calc_elf_size);
+            print_dec(calc_elf_data_size);
             print(" bytes)\n");
         }
     }
